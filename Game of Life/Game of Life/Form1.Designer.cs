@@ -28,23 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
-			this.SuspendLayout();
-			// 
-			// Canvas
-			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(0, 0);
-			this.Cursor = System.Windows.Forms.Cursors.Hand;
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-			this.Name = "Canvas";
-			this.Text = "Game of Life";
-			this.Load += new System.EventHandler(this.Form1_Load);
-			this.ResumeLayout(false);
+            this.SuspendLayout();
+            // 
+            // Canvas
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(307, 190);
+            this.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Name = "Canvas";
+            this.Text = "Game of Life";
+            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Canvas_Paint);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Canvas_MouseClick);
+            this.ResumeLayout(false);
 
         }
 
         #endregion
+
     }
 }
 
