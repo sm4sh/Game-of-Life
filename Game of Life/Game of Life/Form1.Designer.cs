@@ -28,13 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            this.btn = new System.Windows.Forms.Button();
+            this.gameloop = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
+            // 
+            // btn
+            // 
+            this.btn.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btn.Location = new System.Drawing.Point(0, 173);
+            this.btn.Name = "btn";
+            this.btn.Size = new System.Drawing.Size(309, 23);
+            this.btn.TabIndex = 0;
+            this.btn.Text = "Start";
+            this.btn.UseVisualStyleBackColor = true;
+            this.btn.Click += new System.EventHandler(this.btn_Click);
+            // 
+            // gameloop
+            // 
+            this.gameloop.Interval = 500;
+            this.gameloop.Tick += new System.EventHandler(this.gameLoop);
             // 
             // Canvas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(307, 190);
+            this.ClientSize = new System.Drawing.Size(309, 196);
+            this.Controls.Add(this.btn);
             this.Cursor = System.Windows.Forms.Cursors.Hand;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Canvas";
@@ -47,6 +67,10 @@
         }
 
         #endregion
+
+        private System.Windows.Forms.Button btn;
+        private System.Windows.Forms.Timer gameloop;
+
 
     }
 }
