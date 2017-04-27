@@ -13,12 +13,13 @@ namespace Game_of_Life
 {
     public partial class Canvas : Form
     {
-        public const int COLUMNS = 10;
-        public const int ROWS = 10;
-		public const int CELLSIZE = 50;
+        public const int COLUMNS = 50;
+        public const int ROWS = 50;
+		public const int CELLSIZE = 10;
         public const int PENSIZE = 1;
 
-        private bool[,] aCanvasData; 
+        private bool[,] aCanvasData;
+        private int dGeneration = 0;
 
         public Canvas()
         {
@@ -27,14 +28,7 @@ namespace Game_of_Life
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            bool[,] aCanvas = new bool[COLUMNS, ROWS];
-            for (int c = 0; c < COLUMNS; c++) {
-				for (int r = 0; r < ROWS; r++) {
-					aCanvas[c, r] = false;
-				}
-			}
-            this.aCanvasData = aCanvas;
-            this.Size = new System.Drawing.Size(COLUMNS * (CELLSIZE + PENSIZE) + 16, ROWS * (CELLSIZE + PENSIZE) + 34 + 23);
+            this.Size = new System.Drawing.Size(COLUMNS * (CELLSIZE + PENSIZE) + 16, ROWS * (CELLSIZE + PENSIZE) + 34 + 42);
 		}
 
         private void Canvas_Paint(object sender, PaintEventArgs e)
@@ -54,6 +48,7 @@ namespace Game_of_Life
                     new System.Drawing.Point(0, (r * (CELLSIZE + PENSIZE))),
                     new System.Drawing.Point(COLUMNS * (CELLSIZE + PENSIZE), r * (CELLSIZE + PENSIZE)));
             }
+            resetCanvas();
         }
 
         private void Canvas_MouseClick(object sender, MouseEventArgs e)
@@ -82,6 +77,7 @@ namespace Game_of_Life
                 for (int y = 0; y < ROWS; y++)
                     aInt[x,y] = countNeighbours(x, y);
             updateTiles(aInt);
+            this.dGeneration++;
         }
 
         private void updateTiles(int[,] aInt)
@@ -115,20 +111,50 @@ namespace Game_of_Life
                 for (int c = 0; c < COLUMNS; c++)
                 {
                     g.FillRectangle(aCanvasData[c,r] ? brush_green : brush_red,
-                        (c * (CELLSIZE + PENSIZE))+PENSIZE +3,
-                        (r * (CELLSIZE + PENSIZE)) + PENSIZE +3,
-                        CELLSIZE -6,
-                        CELLSIZE -6
+                        (c * (CELLSIZE + PENSIZE))+PENSIZE + (CELLSIZE >= 25 ? 3 : 1),
+                        (r * (CELLSIZE + PENSIZE)) + PENSIZE + (CELLSIZE >= 25 ? 3 : 1),
+                        CELLSIZE - (CELLSIZE >= 25 ? 6 : 2),
+                        CELLSIZE - (CELLSIZE >= 25 ? 6 : 2)
                     );
 
                  }
+            groupBox1.Text = "Generation: " + this.dGeneration;
            
+        }
+
+        private void resetCanvas()
+        {
+            bool[,] aCanvas = new bool[COLUMNS, ROWS];
+            for (int c = 0; c < COLUMNS; c++)
+            {
+                for (int r = 0; r < ROWS; r++)
+                {
+                    aCanvas[c, r] = false;
+                }
+            }
+            this.aCanvasData = aCanvas;
+            this.dGeneration = 0;
+            updateCanvas();
+            this.gameloop.Stop();
+            this.btn.Text = "Start";
         }
 
         private void gameLoop(object sender, EventArgs e)
         {
             updateData();
             updateCanvas();
+
+        }
+
+        private void bnt_step_Click(object sender, EventArgs e)
+        {
+            updateData();
+            updateCanvas();
+        }
+
+        private void btn_reset_Click(object sender, EventArgs e)
+        {
+            resetCanvas();
         }
     }
 }
