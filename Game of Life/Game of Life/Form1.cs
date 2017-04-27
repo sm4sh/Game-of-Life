@@ -13,11 +13,13 @@ namespace Game_of_Life
 {
     public partial class Canvas : Form
     {
+        // Konstanten
         public const int COLUMNS = 50;
         public const int ROWS = 50;
 		public const int CELLSIZE = 10;
         public const int PENSIZE = 1;
 
+        // Klassenvariablen
         private bool[,] aCanvasData;
         private int dGeneration = 0;
 
@@ -35,6 +37,8 @@ namespace Game_of_Life
         {
             Graphics g = Graphics.FromHwnd(Handle);
             Pen pen = new System.Drawing.Pen(System.Drawing.Color.Black, (float)PENSIZE);
+            
+            // vertikale Linien zeichnen
             for (int c = 1; c < COLUMNS; c++)
             {
                 g.DrawLine(pen,
@@ -42,6 +46,7 @@ namespace Game_of_Life
                     new System.Drawing.Point((c * (CELLSIZE + PENSIZE)), (ROWS * (CELLSIZE + PENSIZE))));
 
             }
+            // horizontale Linien zeichnen
             for (int r = 0; r < ROWS; r++)
             {
                 g.DrawLine(pen,
@@ -51,6 +56,7 @@ namespace Game_of_Life
             resetCanvas();
         }
 
+        // Nutzereingabe
         private void Canvas_MouseClick(object sender, MouseEventArgs e)
         {
             int spalte = (e.Location.X - (e.Location.X  % (CELLSIZE + PENSIZE))) / (CELLSIZE + PENSIZE);
@@ -59,6 +65,7 @@ namespace Game_of_Life
             updateCanvas();
         }
 
+        // Start/Stop
         private void btn_Click(object sender, EventArgs e)
         {
             if (this.gameloop.Enabled) {
