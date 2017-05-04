@@ -16,7 +16,7 @@ namespace Game_of_Life
         // Konstanten
         public const int COLUMNS = 50;
         public const int ROWS = 50;
-		public const int CELLSIZE = 10;
+		public const int CELLSIZE = 15;
         public const int PENSIZE = 1;
 
         // Klassenvariablen
