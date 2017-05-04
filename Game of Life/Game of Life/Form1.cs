@@ -87,6 +87,7 @@ namespace Game_of_Life
             this.dGeneration++;
         }
 
+        // Überlebenslogik
         private void updateTiles(int[,] aInt)
         {
             for (int x = 0; x < COLUMNS; x++)
@@ -94,6 +95,7 @@ namespace Game_of_Life
                     this.aCanvasData[x, y] = ((aInt[x, y] == 3) || (aInt[x, y] == 2 && this.aCanvasData[x, y]));
         }
 
+        // Zählen der Nachbarn
         private int countNeighbours(int x, int y)
         {
             int neighbours = 0;
@@ -102,11 +104,13 @@ namespace Game_of_Life
                     if((x+xl >=0) && (x+xl < COLUMNS-1))
                         for (int yl = -1; yl < 2;yl++ )
                             if ((y + yl >= 0) && (y + yl <= ROWS-1))
-                                if (this.aCanvasData[x+xl, y+yl]) 
-                                    neighbours += 1;
+                                if (this.aCanvasData[x+xl, y+yl])
+                                    if(!(xl == 0 && yl == 0))
+                                        neighbours += 1;
             return neighbours;
         }
 
+        // Updaten der View
         private void updateCanvas()
         {
             Graphics g = Graphics.FromHwnd(Handle);
@@ -129,6 +133,7 @@ namespace Game_of_Life
            
         }
 
+        // Reset + Initialisierung des Spielfeldes
         private void resetCanvas()
         {
             bool[,] aCanvas = new bool[COLUMNS, ROWS];
